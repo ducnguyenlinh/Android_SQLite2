@@ -29,35 +29,29 @@ public class SQLiteActivity extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sqlite);
         init();
-
-
-        /*
-        * *
-        CRUD Operations
-        * */
-        // Inserting contacts
+        
         btn_add.setOnClickListener(this);
     }
 
     private void init(){
         et_name = (EditText) findViewById(R.id.et_name);
         et_address = (EditText) findViewById(R.id.et_address);
-        et_address = (EditText) findViewById(R.id.et_phone_number);
+        et_phone_number = (EditText) findViewById(R.id.et_phone_number);
         btn_add = (Button) findViewById(R.id.btn_add);
     }
 
     @Override
     public void onClick(View v) {
         Log.d("Insert: ", "Inserting ..");
-        db.addContact(new Student(1, "Nguyen Duc Linh", "123456", "777777"));
-        db.addContact(new Student(2, "Doi Khac Thanh", "123456", "888888"));
-        db.addContact(new Student(3, "Phan Manh Cuong", "123456", "999999"));
+        db.addContact(new Student(1, et_name.getText().toString(), et_address.getText().toString(),
+                et_phone_number.getText().toString()));
 
         // Reading all contacts
         Log.d("Reading: ", "Reading all contacts..");
         contacts = db.getAllContacts();
 
         for (Student cn : contacts) {
+            db.addContact(new Student());
             String log = "id: " + cn.getId() + " ,name: " + cn.getName() + " ,address: " +
                     cn.getAddress() + " ,phone_number: " + cn.getPhone_number();
             // Writing Contacts to log
